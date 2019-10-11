@@ -59,13 +59,16 @@ Shader "Configurable/Debug/WorldNormals"
 		float4 vertex : SV_POSITION;
 		half3 worldNormal : TEXCOORD0;
 		half4 color: COLOR;
+		UNITY_VERTEX_OUTPUT_STEREO
 	};
 	
 	v2f vert (appdata_t v)
 	{
 		v2f o;
 		UNITY_SETUP_INSTANCE_ID(v);
+		UNITY_INITIALIZE_OUTPUT(v2f, o);
 		UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+		
 		o.vertex = UnityObjectToClipPos(v.vertex);
 		o.worldNormal = UnityObjectToWorldNormal(v.normal);
 		o.color = lerp(_Color, v.color * _Color, _UseVertexColor);
@@ -74,6 +77,8 @@ Shader "Configurable/Debug/WorldNormals"
 	
 	half4 frag (v2f i) : SV_Target
 	{
+		UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+		
 		// normal is a 3D vector with xyz components; in -1..1
 		// range. To display it as color, bring the range into 0..1
 		// and put into red, green, blue components

@@ -68,6 +68,7 @@ Shader "Configurable/Debug/Depth01"
 		v2f o;
 		UNITY_SETUP_INSTANCE_ID(v);
 		UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+		
 		o.vertex = UnityObjectToClipPos(v.vertex);
 		float depth = COMPUTE_DEPTH_01;
 		depth = (depth - _DepthRemap.x) / (_DepthRemap.y - _DepthRemap.x);
@@ -92,6 +93,7 @@ Shader "Configurable/Debug/Depth01"
 		v2fShadow o;
 		UNITY_SETUP_INSTANCE_ID(v);
 		UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+		
 		o.vertex = UnityObjectToClipPos(v.vertex);
 		return o;
 	}
